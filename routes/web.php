@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
@@ -56,7 +57,7 @@ return $post;
 //insert into database
 Route::get('/insertorm',function(){
 
-Post::create(['title'=>'ahmed','content'=>'hello i am ahmed']);
+Post::create(['title'=>'sfafa','content'=>'hello i amfaf ahmed']);
 
 
 });
@@ -64,7 +65,22 @@ Post::create(['title'=>'ahmed','content'=>'hello i am ahmed']);
 //update record
 Route::get('/update',function(){
 
-    Post::where('id',2)->update(['title'=>'ibraheem','content'=>'hello i am ibraheem']);
+    Post::where('id',1)->update(['title'=>'ibraheem','content'=>'hello i am ibraheem']);
 
 
-    });
+});
+
+
+
+/* eloquent relationships */
+
+//one to one relationship
+Route::get('/relationships',function(){
+
+   return User::find(1)->post;
+});
+
+Route::get('/relationrevers',function(){
+
+    return Post::find(3)->user->name;
+ });
