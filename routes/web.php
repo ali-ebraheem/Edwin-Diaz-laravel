@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -57,7 +58,9 @@ return $post;
 //insert into database
 Route::get('/insertorm',function(){
 
-Post::create(['title'=>'sfafa','content'=>'hello i amfaf ahmed']);
+// Post::create(['title'=>'sfafa','content'=>'hello i amfaf ahmed']);
+
+User::create(['name'=>'hljlkjlj','email'=>'ali@gmail.com','password'=>'123']);
 
 
 });
@@ -75,12 +78,52 @@ Route::get('/update',function(){
 /* eloquent relationships */
 
 //one to one relationship
-Route::get('/relationships',function(){
+Route::get('/relationships/onetoone',function(){
 
    return User::find(1)->post;
 });
 
-Route::get('/relationrevers',function(){
+Route::get('/relationrevers/onetoone',function(){
 
     return Post::find(3)->user->name;
  });
+
+
+ //one to many relationship
+Route::get('relationships/onetomany',function(){
+
+   $userPosts= User::find(1)->posts;
+foreach($userPosts as $userPost){
+
+    echo $userPost . "<br>";
+};
+
+
+});
+
+
+
+//many to many
+
+Route::get('relationships/manytomany',function(){
+
+    $userRoles=User::find(1)->roles;
+
+
+
+     return $userRoles;
+
+
+});
+
+// access to pivot table
+Route::get('relationships/pivot',function(){
+
+    $userRoles=User::find(1)->roles;
+
+    foreach($userRoles as $userrole){
+
+        return $userrole->pivot->user_id;
+    }
+
+});
