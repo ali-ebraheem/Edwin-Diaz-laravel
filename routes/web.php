@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 
 
@@ -125,5 +126,19 @@ Route::get('relationships/pivot',function(){
 
         return $userrole->pivot->user_id;
     }
+
+});
+
+
+// has many through
+
+Route::get('relationships/hasmanythrough',function(){
+$posts=Country::find(1)->posts;
+
+foreach($posts as $post){
+return $post;
+
+}
+
 
 });
